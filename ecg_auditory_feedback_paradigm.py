@@ -90,7 +90,7 @@ else:
 # End buffer
 # ft_client.disconnect()
    
-
+#############################################################################################################
 #%% Find min samples for scipy peak detection algorithm to find R peak - chunk_size - minimum 10 needed 
 
 paths='D:/CCS_Users/sruthi/ecg_test3/'
@@ -128,6 +128,7 @@ print(total_peaks)
 # chunk_size=9 detected all peaks within ecg_data_array[:500]  but not all after that - non overlapping- try overlapping
 # 10 perf for overlapping , 8 didnt work either
 
+#############################################################################################################
 #%% Baseline 5s - calculate Rpeak threshold - capture heart rate - random delay values should be within 70% of this
 'Stream baseline data'
 
@@ -166,11 +167,14 @@ plt.figure(figsize=(20,10))
 plt.plot(data_baseline)
 plt.scatter(peak_baseline,data_baseline[peak_baseline],color="red")
 
+#############################################################################################################
 #%% Function for producing stimuli when rpeak is detected 
 # Start streaming data in size of mini sample
-# Get last one second of data (big enough to filter)- every call from buffer - repeats many times per second (Now overlapping to prevent peaks being missed)
+# Get last one second of data (big enough to filter)- every call from buffer - repeats many times per second 
+#(Now overlapping to prevent peaks being missed)
 # Filter the data, find peaks 
-# If peaks present in mini_sample_size (last few samples to get real time), then produce sound - This is done because buffer is not updated every sample - it may come in blocks
+# If peaks present in mini_sample_size (last few samples to get real time), then produce sound 
+#- This is done because buffer is not updated every sample - it may come in blocks
 
 mini_sample_size = 10 #int(sfreq/10)
 # time_trial=10
@@ -188,7 +192,8 @@ def find_rpeak(time_trial,sync=True):
     while current_time < (start_time + time_trial):
         # plt.cla()
         pygame.mixer.music.set_volume(0.1)
-        # If Rpeak detected previously, let process sleep for some time since Rpeak wont be there in next few 100ms - avoid duplicate peak detection since we overlap the data
+        # If Rpeak detected previously, let process sleep for some time since Rpeak wont be there in next few 100ms 
+	#- avoid duplicate peak detection since we overlap the data
         if peak_detected==True:
             time.sleep(time_delay_max)
         peak_detected=False
@@ -241,6 +246,7 @@ def find_rpeak(time_trial,sync=True):
     
     return soundmarkers_ft,trial_time_taken
 
+#############################################################################################################
 #%% Main: call sync - no sync trials
 
 pygame.mixer.init()
@@ -303,15 +309,4 @@ joblib.dump(keyboard_responses,paths+'responses.pkl')
 # End buffer
 ft_client.disconnect()
 
-#%%
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
+#%% END
