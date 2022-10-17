@@ -2,8 +2,6 @@
 """
 Created on Sat Aug 20 11:17:08 2022
 
-@author: Active 64 CCS
-
 Experimental paradigm to measure interoceptive awareness
 1. 10s blocks - some synced, some no-synced
 2. Within the block, - calculate global system time at start - while loop - till 10s have passed
@@ -47,10 +45,10 @@ import joblib
 
 #%%  'connect fieldtrip client'
 # First run Brainvision Recorder app - enable remote data access in config, 
-# in the app, file - Open Workspace - C:\Vision\Workfiles\DEMO2_2ch.rwksp  (F3 channel)
+# in the app, file - Open Workspace - 2ch.rwksp  (F3 channel)
 # connect ground, and electrode no 1,2 
-# In terminal, cd to Downloads folder or wherever the rda2ft file is
-# then rda2ft (rda2ft localhost 51244), then 
+# In terminal, cd to where the rda2ft file is
+# then run rda2ft (rda2ft localhost 51244), then 
 
 wait_max=10
 ft_client = FieldTrip.Client()
@@ -93,7 +91,7 @@ else:
 #############################################################################################################
 #%% Find min samples for scipy peak detection algorithm to find R peak - chunk_size - minimum 10 needed 
 
-paths='D:/CCS_Users/sruthi/ecg_test3/'
+paths='./ecg_test3/'
 ecg_data = pd.read_csv(paths+'saved_ecg_190822.csv',index_col=0)
 ecg_data_array = np.array(ecg_data)*1e-6
 ecg_data_array=ecg_data_array.reshape(len(ecg_data_array))
@@ -250,8 +248,8 @@ def find_rpeak(time_trial,sync=True):
 #%% Main: call sync - no sync trials
 
 pygame.mixer.init()
-pygame.mixer.music.load(r"D:\CCS_Users\sruthi\ecg\sine10s.wav")
-# pygame.mixer.music.load(r"D:\CCS_Users\sruthi\ecg\sample-15s.mp3")
+pygame.mixer.music.load(r".\ecg\sine10s.wav")
+# pygame.mixer.music.load(r".\ecg\sample-15s.mp3")
 pygame.mixer.music.set_volume(0.1)
 # pygame.mixer.music.play()
 
@@ -303,7 +301,7 @@ joblib.dump(soundmarker_ft_nosync1,paths+'soundmarkers_nosync.pkl')
 joblib.dump(soundmarker_ft_sync1,paths+'soundmarkers_sync.pkl')
 joblib.dump(trial_choice,paths+'true_markers.pkl')
 joblib.dump(keyboard_responses,paths+'responses.pkl')
-# r=joblib.load('D:/CCS_Users/sruthi/ecg/'+'responses.pkl')
+# r=joblib.load('./ecg/'+'responses.pkl')
 
 
 # End buffer
