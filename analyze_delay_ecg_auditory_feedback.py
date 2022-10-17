@@ -2,8 +2,6 @@
 """
 Created on Fri Aug 19 13:49:52 2022
 
-@author: Active 64 CCS
-
 Measure delay between auditory feedback and the actual R-peak in the saved data in terms of sample numbers
 Synced markers should show minimal variation for every peak-sound combination, 
  while non-synced markers should show high variation
@@ -17,14 +15,14 @@ import joblib
 import matplotlib.pyplot as plt
 import neurokit2 as nk
 
+paths='./test_feedback/'
+ecg_data = pd.read_csv(paths+'saved_ecg_200822.csv',index_col=0)
+
 def find_nearest_idx(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     return idx #array[idx]
 
-paths='D:/CCS_Users/sruthi/test_feedback/'
-
-ecg_data = pd.read_csv(paths+'saved_ecg_200822.csv',index_col=0)
 ecg_data_array = np.array(ecg_data)*1e-6
 ecg_data_array=ecg_data_array.reshape(len(ecg_data_array))
 ecg_data_array=ecg_data_array*-1
