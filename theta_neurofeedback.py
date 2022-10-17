@@ -2,7 +2,6 @@
 """
 Created on Thu Aug 19 14:11:12 2021
 
-@author: Active 64 CCS
 
 Acquisition System : Brainvision actiCHamp Plus
 Connect electrodes
@@ -37,13 +36,13 @@ print(__doc__)
 
 #the Fieldtrip buffer does not contain all the measurement information required by the 
 #MNE real-time processing pipeline,so an info dictionary must be provided to instantiate FieldTripClient.
-raw_fname = 'C:\Vision\Raw Files\Test20210819.vhdr'
+raw_fname = '.\Test20210819.vhdr'
 raw = read_raw_brainvision(raw_fname, preload=True).pick('eeg')
 info = raw.info
 bads = []
 
 import os
-os.chdir('D:\CCS_Users\sruthi')
+os.chdir('.\sruthi')
 #%%
 
 fig, ax = plt.subplots(1)
